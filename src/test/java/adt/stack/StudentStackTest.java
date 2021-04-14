@@ -13,6 +13,10 @@ public class StudentStackTest {
 	public Stack<Integer> stack1;
 	public Stack<Integer> stack2;
 	public Stack<Integer> stack3;
+	public Stack<Integer> fullStackOneElement;
+	public Stack<Integer> fullStack;
+	public Stack<Integer> emptyStackOneElement;
+	public Stack<Integer> emptyStack;
 
 	@Before
 	public void setUp() throws StackOverflowException {
@@ -27,14 +31,28 @@ public class StudentStackTest {
 		// Pilha com 2 elementos de tamanho 2, pilha cheia.
 		stack2.push(1);
 		stack2.push(2);
+		
+		//fullStackOneElement
+		fullStackOneElement.push(68);
+		
+		//fullStack
+		fullStack.push(65);
+		fullStack.push(-92);
+		fullStack.push(87);
+		fullStack.push(74);
+		fullStack.push(13);
 
 	}
 
 	private void getImplementations() {
 		// TODO O aluno deve ajustar aqui para instanciar sua implementação
-		stack1 = null;
-		stack2 = null;
-		stack3 = null;
+		stack1 = new StackImpl<Integer>(10);
+		stack2 = new StackImpl<Integer>(2);
+		stack3 = new StackImpl<Integer>(10);
+		fullStackOneElement = new StackImpl<Integer>(1);
+		fullStack = new StackImpl<Integer>(5);
+		emptyStackOneElement = new StackImpl<Integer>(1);
+		emptyStack = new StackImpl<Integer>(5);
 	}
 
 	// MÉTODOS DE TESTE
@@ -66,7 +84,7 @@ public class StudentStackTest {
 
 	@Test(expected = StackOverflowException.class)
 	public void testPushComErro() throws StackOverflowException {
-		stack1.push(new Integer(5)); // levanta excecao apenas se o tamanhonao
+		stack2.push(new Integer(5)); // levanta excecao apenas se o tamanhonao
 										// permitir outra insercao
 	}
 
@@ -82,7 +100,97 @@ public class StudentStackTest {
 
 	@Test(expected = StackUnderflowException.class)
 	public void testPopComErro() throws StackUnderflowException {
-		assertEquals(new Integer(3), stack1.pop()); // levanta excecao apenas se
+		assertEquals(new Integer(3), stack3.pop()); // levanta excecao apenas se
 													// stack1 for vazia
+	}
+	
+	
+	
+	//mais testes abaixo
+	
+	@Test(expected = StackOverflowException.class)
+	public void pushFullStack() throws StackOverflowException {
+		fullStackOneElement.push(92);
+		fullStack.push(92);
+		fullStack.push(-27);
+		fullStack.push(null);
+		fullStackOneElement.push(null);
+	}
+	
+	@Test
+	public void fullStackIsFull() {
+		assertTrue(fullStackOneElement.isFull());
+		assertFalse(fullStackOneElement.isEmpty());
+		assertTrue(!fullStackOneElement.isEmpty());
+		assertFalse(!fullStackOneElement.isFull());
+		
+		assertTrue(fullStack.isFull());
+		assertFalse(fullStack.isEmpty());
+		assertTrue(!fullStack.isEmpty());
+		assertFalse(!fullStack.isFull());
+	}
+	
+	@Test
+	public void fullStackIsntEmpty() {
+		assertFalse(fullStackOneElement.isEmpty());
+		assertTrue(fullStackOneElement.isFull());
+		assertTrue(!fullStackOneElement.isEmpty());
+		assertFalse(!fullStackOneElement.isFull());
+		
+		assertFalse(fullStack.isEmpty());
+		assertTrue(fullStack.isFull());
+		assertTrue(!fullStack.isEmpty());
+		assertFalse(!fullStack.isFull());
+	}
+	
+	@Test
+	public void fullStackTop() {
+		assertTrue(68 == fullStackOneElement.top());
+		assertTrue(13 == fullStack.top());
+	}
+	
+	@Test
+	public void popFullStack() throws StackUnderflowException {
+		assertTrue(68 == fullStackOneElement.pop());
+		assertTrue(13 == fullStack.pop());
+		assertTrue(fullStackOneElement.isEmpty());
+		assertFalse(fullStack.isEmpty());
+		assertFalse(fullStack.isFull());
+	}
+	
+	@Test
+	public void emptyStackIsntFull() {
+		assertFalse(emptyStackOneElement.isFull());
+		assertFalse(emptyStack.isFull());
+	}
+	
+	@Test
+	public void emptyStackIsEmpty() {
+		assertTrue(emptyStackOneElement.isEmpty());
+		assertTrue(emptyStack.isEmpty());
+	}
+	
+	@Test
+	public void emptyStackTop() {
+		assertTrue(emptyStackOneElement.top() == null);
+		assertTrue(emptyStack.top() == null);
+	}
+	
+	@Test
+	public void emptyStackPush() throws StackOverflowException {
+		emptyStackOneElement.push(1);
+		try {
+			emptyStackOneElement.push(2);
+		} catch(StackOverflowException e) {}
+		assertTrue(1 == emptyStackOneElement.top());
+		
+		emptyStack.push(30);
+		assertTrue(30 == emptyStack.top());
+	}
+	
+	@Test(expected = StackUnderflowException.class)
+	public void emptyStackPop() throws StackUnderflowException {
+		emptyStackOneElement.pop();
+		emptyStack.pop();
 	}
 }
