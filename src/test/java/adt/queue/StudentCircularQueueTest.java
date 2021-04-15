@@ -8,7 +8,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-public class StudentQueueTest {
+public class StudentCircularQueueTest {
 
 	public Queue<Integer> queue1;
 	public Queue<Integer> queue2;
@@ -55,18 +55,18 @@ public class StudentQueueTest {
 
 	private void getImplementations() {
 		// TODO O aluno deve ajustar aqui para instanciar sua implementação
-		queue1 = new QueueImpl<Integer>(5);
-		queue2 = new QueueImpl<Integer>(2);
-		queue3 = new QueueImpl<Integer>(5);
+		queue1 = new CircularQueue<Integer>(5);
+		queue2 = new CircularQueue<Integer>(2);
+		queue3 = new CircularQueue<Integer>(5);
 		
 		//filas com capacidade para 1 elemento
-		fullQueue1 = new QueueImpl<Integer>(1);
-		emptyQueue1 = new QueueImpl<Integer>(1);
+		fullQueue1 = new CircularQueue<Integer>(1);
+		emptyQueue1 = new CircularQueue<Integer>(1);
 		
 		//filas com capacidade para 5 elementos
-		fullQueue5 = new QueueImpl<Integer>(5);
-		emptyQueue5 = new QueueImpl<Integer>(5);
-		queue5 = new QueueImpl<Integer>(5);
+		fullQueue5 = new CircularQueue<Integer>(5);
+		emptyQueue5 = new CircularQueue<Integer>(5);
+		queue5 = new CircularQueue<Integer>(5);
 	}
 
 	// MÉTODOS DE TESTE
