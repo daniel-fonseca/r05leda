@@ -27,7 +27,7 @@ public class StackImpl<T> implements Stack<T> {
 
 	@Override
 	public boolean isFull() {
-		return array[array.length - 1] != null;
+		return top == array.length - 1;
 	}
 
 	@Override
@@ -50,7 +50,6 @@ public class StackImpl<T> implements Stack<T> {
 	}
 		
 		T elementRemove = this.top();
-		this.array[top] = null;
 		top--;
 		return elementRemove;
 	}

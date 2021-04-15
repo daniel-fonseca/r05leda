@@ -13,7 +13,11 @@ public class QueueImpl<T> implements Queue<T> {
 
 	@Override
 	public T head() {
-		return array[0];
+		T head = null;
+		if (tail != -1) {
+			head = array[0];
+		}
+		return head;
 	}
 
 	@Override
@@ -50,8 +54,7 @@ public class QueueImpl<T> implements Queue<T> {
 		if (isEmpty()) {
 			throw new QueueUnderflowException();
 		}
-		T headRemoved = head();
-		array[tail] = null;
+		T headRemoved = head();;
 		tail--;
 		if (array.length != 1) {
 			shiftLeft();
