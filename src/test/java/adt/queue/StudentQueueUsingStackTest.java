@@ -8,7 +8,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-public class StudentCircularQueueTest {
+public class StudentQueueUsingStackTest {
 
 	public Queue<Integer> queue1;
 	public Queue<Integer> queue2;
@@ -55,18 +55,18 @@ public class StudentCircularQueueTest {
 
 	private void getImplementations() {
 		// TODO O aluno deve ajustar aqui para instanciar sua implementação
-		queue1 = new CircularQueue<Integer>(5);
-		queue2 = new CircularQueue<Integer>(2);
-		queue3 = new CircularQueue<Integer>(5);
+		queue1 = new QueueUsingStack<Integer>(5);
+		queue2 = new QueueUsingStack<Integer>(2);
+		queue3 = new QueueUsingStack<Integer>(5);
 		
 		//filas com capacidade para 1 elemento
-		fullQueue1 = new CircularQueue<Integer>(1);
-		emptyQueue1 = new CircularQueue<Integer>(1);
+		fullQueue1 = new QueueUsingStack<Integer>(1);
+		emptyQueue1 = new QueueUsingStack<Integer>(1);
 		
 		//filas com capacidade para 5 elementos
-		fullQueue5 = new CircularQueue<Integer>(5);
-		emptyQueue5 = new CircularQueue<Integer>(5);
-		queue5 = new CircularQueue<Integer>(5);
+		fullQueue5 = new QueueUsingStack<Integer>(5);
+		emptyQueue5 = new QueueUsingStack<Integer>(5);
+		queue5 = new QueueUsingStack<Integer>(5);
 	}
 
 	// MÉTODOS DE TESTE
@@ -250,8 +250,8 @@ public class StudentCircularQueueTest {
 		assertTrue(13 == queue5.head());
 		queue5.enqueue(24);
 		assertFalse(queue5.isEmpty());
-		assertTrue(queue5.isFull());
 		assertTrue(13 == queue5.head());
+		assertTrue(queue5.isFull());
 	}
 	
 	@Test
@@ -299,25 +299,6 @@ public class StudentCircularQueueTest {
 		emptyQueue5.enqueue(null);
 		assertTrue(emptyQueue5.isEmpty());
 		assertTrue(emptyQueue5.head() == null);
-	}
-	
-	@Test
-	public void testFullQueueDequEnqu() throws QueueUnderflowException {
-		assertTrue(fullQueue1.isFull());
-		assertTrue(fullQueue5.isFull());
-		
-		fullQueue5.dequeue();
-		fullQueue5.dequeue();
-		assertTrue(-24 == fullQueue5.head());
-		fullQueue5.dequeue();
-		fullQueue5.dequeue();
-		assertTrue(7 == fullQueue5.head());
-		assertFalse(fullQueue5.isFull());
-		assertFalse(fullQueue5.isEmpty());
-		fullQueue5.dequeue();
-		assertTrue(fullQueue5.head() == null);
-		assertTrue(fullQueue5.isEmpty());
-		assertFalse(fullQueue5.isFull());
 	}
 	
 }

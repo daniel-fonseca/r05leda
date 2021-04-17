@@ -2,6 +2,8 @@ package adt.queue;
 
 import adt.stack.Stack;
 import adt.stack.StackImpl;
+import adt.stack.StackOverflowException;
+import adt.stack.StackUnderflowException;
 
 public class QueueUsingStack<T> implements Queue<T> {
 
@@ -15,32 +17,65 @@ public class QueueUsingStack<T> implements Queue<T> {
 
 	@Override
 	public void enqueue(T element) throws QueueOverflowException {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		if (isFull()) {
+			throw new QueueOverflowException();
+		}
+		if (!isNull(element)) {
+			try {
+				stack1.push(element);
+			} catch (StackOverflowException e) {}
+		}
 	}
 
 	@Override
 	public T dequeue() throws QueueUnderflowException {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		T resp = null;
+		if (isEmpty()) {
+			throw new QueueUnderflowException();
+		}
+		Stack<T> unstacked1 = desempilha(stack1, stack2);
+		try {
+			resp = unstacked1.pop();
+		} catch (StackUnderflowException e) {}
+		stack1 = desempilha(unstacked1, stack2);
+		return resp;
 	}
 
 	@Override
 	public T head() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		Stack<T> unstacked1 = desempilha(stack1, stack2);
+		T resp = unstacked1.top();
+		stack1 = desempilha(unstacked1, stack1);
+		return resp;
 	}
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		return stack1.isEmpty();
 	}
 
 	@Override
 	public boolean isFull() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Not implemented yet!");
+		return stack1.isFull();
+	}
+	
+	private Stack<T> desempilha(Stack<T> stack, Stack<T> emptyStack) {
+		//s1 deve ser uma pilha que nao deve estar vazia
+		//s2 deve ser sempre uma pilha vazia
+		Stack<T> stackReturn = emptyStack;
+		Stack<T> stackAux = stack;
+		if (emptyStack.isEmpty()) {
+			while (!stackAux.isEmpty()) {
+				try {
+					stackReturn.push(stackAux.pop());
+				} catch (StackOverflowException | StackUnderflowException e) {}
+			}
+		}
+		return stackReturn;
+	}
+	
+	private boolean isNull(T element) {
+		return element == null;
 	}
 
 }

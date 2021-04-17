@@ -13,11 +13,11 @@ public class QueueImpl<T> implements Queue<T> {
 
 	@Override
 	public T head() {
-		T head = null;
+		T resp = null;
 		if (tail != -1) {
-			head = array[0];
+			resp = array[0];
 		}
-		return head;
+		return resp;
 	}
 
 	@Override
